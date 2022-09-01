@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscription_types",
+  "info": {
+    "singularName": "subscription-type",
+    "pluralName": "subscription-types",
+    "displayName": "Subscription-type",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subscription_price": {
+      "type": "integer",
+      "required": true
+    },
+    "retail_price": {
+      "type": "integer",
+      "required": true
+    },
+    "tier": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "subscription_type"
+    },
+    "symbol": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

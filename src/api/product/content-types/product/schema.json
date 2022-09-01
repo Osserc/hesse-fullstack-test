@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "brand": {
+      "type": "string",
+      "required": true
+    },
+    "subscription_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::subscription-type.subscription-type",
+      "inversedBy": "products"
+    },
+    "product_types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-type.product-type",
+      "inversedBy": "products"
+    }
+  }
+}
