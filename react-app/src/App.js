@@ -1,6 +1,6 @@
 import './App.css';
 // import { useState, useEffect } from 'react'
-import useFetch from './logic/useProducts'
+import useFetch from './logic/useFetch'
 
 function App() {
   const { products } = useFetch('http://localhost:1337/api/products?populate=*')
