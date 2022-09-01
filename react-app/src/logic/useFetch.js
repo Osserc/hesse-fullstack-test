@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 function useFetch(url) {
-    const [products, setProducts] = useState({ loaded: false })
+    const [data, setData] = useState({ loaded: false })
 
     useEffect(() => {
         retrieveData(url)
@@ -10,17 +10,15 @@ function useFetch(url) {
 
     async function retrieveData(url) {
         try {
-        const data = await fetch(url)
-        const content = await data.json()
-        setProducts(content.data)
+        const rawData = await fetch(url)
+        const content = await rawData.json()
+        setData(content.data)
         } catch(error) {
         throw new Error('Error: ' + error)
         }
     }
 
-    return {
-        products
-    }
+    return data
 }
 
 export default useFetch

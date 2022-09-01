@@ -27,6 +27,16 @@
       "relation": "manyToMany",
       "target": "api::product-type.product-type",
       "inversedBy": "products"
+    },
+    "preview": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
