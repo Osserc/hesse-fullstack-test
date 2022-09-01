@@ -1,5 +1,5 @@
 import './App.css';
-// import { useState, useEffect } from 'react'
+import { Button } from './components/styledComponents'
 import useFetch from './logic/useFetch'
 
 function App() {
