@@ -1,22 +1,9 @@
 import './App.css';
-import { useState, useEffect } from 'react'
+// import { useState, useEffect } from 'react'
+import useFetch from './logic/useProducts'
 
 function App() {
-  const [products, setProducts] = useState({ loaded: false })
-
-  useEffect(() => {
-    retrieveData()
-  }, [])
-
-  async function retrieveData() {
-    try {
-      const data = await fetch('http://localhost:1337/api/products?populate=*')
-      const content = await data.json()
-      setProducts({ loaded: true, content: content.data })
-    } catch(error) {
-      throw new Error('Error: ' + error)
-    }
-  }
+  const { products } = useFetch('http://localhost:1337/api/products?populate=*')
 
   return (
     <div className="App">
@@ -25,7 +12,8 @@ function App() {
         <div>Waiting...</div>
         :
         <div>
-          {products.content.map((item) => {
+          {products.map((item) => {
+            console.log(products)
             return <div key={item.id}>{`${item.attributes.brand} ~ ${item.attributes.product_types} ~ ${item.attributes.subscription_type}`}</div>
           })}
         </div>
