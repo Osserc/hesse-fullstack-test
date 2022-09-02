@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 function checkType(type) {
     switch (type) {
         case 'Silver':
-            return 'green'
+            return 'lightgreen'
         case 'Gold':
             return 'dodgerblue'
         case 'Platinum':

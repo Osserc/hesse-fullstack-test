@@ -1,11 +1,11 @@
 import './App.css';
-import { Button } from './components/styledComponents'
 import useFetch from './logic/useFetch'
+import SubscriptionFilters from './components/SubscriptionsFilter';
 
 function App() {
   const data = useFetch('http://localhost:1337/api/products?populate=*')
-  const categories = useFetch('http://localhost:1337/api/product-types')
-  const subscriptions = useFetch('http://localhost:1337/api/subscription-types')
+  const categories = useFetch('http://localhost:1337/api/product-types?populate=*')
+  const subscriptions = useFetch('http://localhost:1337/api/subscription-types?populate=*')
 
   function printCategories(categories) {
     let list = categories.map((cat) => {
@@ -39,9 +39,7 @@ function App() {
         <div>Waiting...</div>
         :
         <div>
-          {subscriptions.map((sub) => {
-            return <div key={sub.id}>{`${sub.attributes.tier} ~ ${sub.attributes.subscription_price} ~ ${sub.attributes.retail_price}`}</div>
-          })}
+          <SubscriptionFilters subscriptions={subscriptions} />
         </div>
         }
       </header>

@@ -30,17 +30,6 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "subscription_type"
-    },
-    "symbol": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
     }
   }
 }

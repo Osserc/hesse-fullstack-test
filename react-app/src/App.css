@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+
+svg, svg path {
+  pointer-events: none;
+}
