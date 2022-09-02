@@ -1,6 +1,7 @@
 import './App.css';
 import useFetch from './logic/useFetch'
 import SubscriptionFilters from './components/SubscriptionsFilter';
+import CategoriesFilters from './components/CategoriesFilter';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
   const categories = useFetch('http://localhost:1337/api/product-types?populate=*')
   const subscriptions = useFetch('http://localhost:1337/api/subscription-types?populate=*')
   const [subButtonsStatus, setSubButtonsStatus] = useState(null)
+  const [catButtonsStatus, setCatButtonsStatus] = useState(null)
   const [filteredProducts, setFilteredProducts] = useState(null)
 
   useEffect(() => {
@@ -26,32 +28,51 @@ function App() {
   }
 
   if ((!subscriptions.hasOwnProperty('loaded')) && (subButtonsStatus === null)) {
-    let newState = generateActivity()
+    let newState = generateSubStatus()
     setSubButtonsStatus(newState)
+  }
+
+  if ((!categories.hasOwnProperty('loaded')) && (catButtonsStatus === null)) {
+    let newState = generateCatStatus()
+    setCatButtonsStatus(newState)
   }
 
   if ((!data.hasOwnProperty('loaded')) && (filteredProducts === null)) {
     setFilteredProducts(data)
   }
 
-  function refreshProducts() {
-    setFilteredProducts(data)
-  }
-
-  function generateActivity() {
+  function generateSubStatus() {
     return subscriptions.map((sub) => {
       return { id: sub.id, tier: sub.attributes.tier, active: false }
     })
   }
 
-  function handleSubClick(event) {
-    updateButton(+event.target.dataset.id)
+  function generateCatStatus() {
+    return categories.map((cat) => {
+      return { id: cat.id, tier: cat.attributes.name, active: false }
+    })
   }
 
-  function updateButton(id) {
+  function handleSubClick(event) {
+    updateSubButton(+event.target.dataset.id)
+  }
+
+  function handleCatClick(event) {
+    updateCatButton(+event.target.dataset.id)
+  }
+
+  function updateSubButton(id) {
     setSubButtonsStatus(prevState => {
       return prevState.map((button) => {
-          return button.id === id ? { ...button, active: !button.active } : { ...button, active: false }
+        return button.id === id ? { ...button, active: !button.active } : { ...button, active: false }
+      })
+    })
+  }
+
+  function updateCatButton(id) {
+    setCatButtonsStatus(prevState => {
+      return prevState.map((button) => {
+        return button.id === id ? { ...button, active: !button.active } : { ...button, active: false }
       })
     })
   }
@@ -92,6 +113,7 @@ function App() {
           {categories.map((cat) => {
             return <div key={cat.id}>{`${cat.attributes.name}`}</div>
           })}
+          <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleCatClick} />
         </div>
         }
         {subscriptions.loaded === false ?
