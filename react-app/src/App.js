@@ -14,11 +14,12 @@ function App() {
 
   useEffect(() => {
     if (subButtonsStatus !== null) {
-      let tier = detectTierFilter()
-      applySubFilter(tier)
+      let tier = detectSubFilter()
+      let cat = detectCatFilter()
+      applyFilters(tier, cat)
     }
     
-  }, [subButtonsStatus])
+  }, [subButtonsStatus, catButtonsStatus])
 
   function printCategories(categories) {
     let list = categories.map((cat) => {
@@ -49,7 +50,7 @@ function App() {
 
   function generateCatStatus() {
     return categories.map((cat) => {
-      return { id: cat.id, tier: cat.attributes.name, active: false }
+      return { id: cat.id, type: cat.attributes.name, active: false }
     })
   }
 
@@ -77,7 +78,7 @@ function App() {
     })
   }
 
-  function detectTierFilter() {
+  function detectSubFilter() {
     let filter = 'none'
     if (subButtonsStatus.some((btn) => btn.active === true)) {
       filter = subButtonsStatus.filter((btn) => btn.active === true)
@@ -86,10 +87,22 @@ function App() {
     return filter
   }
 
-  function applySubFilter(tier) {
+  function detectCatFilter() {
+    let filter = 'all'
+    if (catButtonsStatus.some((btn) => btn.active === true)) {
+      filter = catButtonsStatus.filter((btn) => btn.active === true)
+      filter = filter[0].type
+    }
+    return filter
+  }
+
+  function applyFilters(tier, cat) {
     let newState = data
     if (tier !== 'none') {
       newState = newState.filter((item) => item.attributes.subscription_type.data.attributes.tier === tier)
+    }
+    if (cat !== 'all') {
+      newState = newState.filter((item) => item.attributes.product_types.data.some((single) => single.attributes.name === cat))
     }
     setFilteredProducts(newState)
   }
@@ -110,9 +123,6 @@ function App() {
         <div>Waiting...</div>
         :
         <div>
-          {categories.map((cat) => {
-            return <div key={cat.id}>{`${cat.attributes.name}`}</div>
-          })}
           <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleCatClick} />
         </div>
         }
