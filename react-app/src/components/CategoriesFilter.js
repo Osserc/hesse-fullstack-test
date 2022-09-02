@@ -13,7 +13,7 @@ function CategoriesFilters(props) {
         <div>
             <Button active={detectPresence()} onClick={props.handleClick} data-id={null}>All</Button>
             {props.categories.map((cat) => {
-                return <Button key={cat.id} active={matchButton(cat.id)} type={cat.attributes.name} onClick={props.handleClick} data-id={cat.id}>
+                return <Button key={cat.id} active={matchButton(cat.id)} type={cat.attributes.name} onClick={props.handleClick} data-filter='Categories' data-id={cat.id}>
                     {cat.attributes.name}
                 </Button>
             })}

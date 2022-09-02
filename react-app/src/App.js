@@ -18,7 +18,7 @@ function App() {
       let cat = detectCatFilter()
       applyFilters(tier, cat)
     }
-    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subButtonsStatus, catButtonsStatus])
 
   function printCategories(categories) {
@@ -54,12 +54,12 @@ function App() {
     })
   }
 
-  function handleSubClick(event) {
-    updateSubButton(+event.target.dataset.id)
-  }
-
-  function handleCatClick(event) {
-    updateCatButton(+event.target.dataset.id)
+  function handleClick(event) {
+    if (event.target.dataset.filter === 'Subscriptions') {
+      updateSubButton(+event.target.dataset.id)
+    } else {
+      updateCatButton(+event.target.dataset.id)
+    }
   }
 
   function updateSubButton(id) {
@@ -79,7 +79,7 @@ function App() {
   }
 
   function detectSubFilter() {
-    let filter = 'none'
+    let filter = 'all'
     if (subButtonsStatus.some((btn) => btn.active === true)) {
       filter = subButtonsStatus.filter((btn) => btn.active === true)
       filter = filter[0].tier
@@ -98,7 +98,7 @@ function App() {
 
   function applyFilters(tier, cat) {
     let newState = data
-    if (tier !== 'none') {
+    if (tier !== 'all') {
       newState = newState.filter((item) => item.attributes.subscription_type.data.attributes.tier === tier)
     }
     if (cat !== 'all') {
@@ -123,14 +123,14 @@ function App() {
         <div>Waiting...</div>
         :
         <div>
-          <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleCatClick} />
+          <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick} />
         </div>
         }
         {subscriptions.loaded === false ?
         <div>Waiting...</div>
         :
         <div>
-          <SubscriptionFilters subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleSubClick} />
+          <SubscriptionFilters subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} />
         </div>
         }
       </header>
