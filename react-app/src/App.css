@@ -113,11 +113,12 @@
 html, body, #root {
   width: 100%;
   box-sizing: border-box;
+  background-color: black;
   margin: 0;
 }
 
 #root {
-  /* display: flex; */
+  background-color: white;
   margin: 0 auto;
   width: 50%;
   max-width: 50%;
@@ -133,6 +134,7 @@ html, body, #root {
   justify-content: flex-start;
   font-size: 18px;
   color: black;
+  box-sizing: border-box;
 }
 
 .App.visible {
@@ -147,14 +149,20 @@ html, body, #root {
   scrollbar-width: none;
   border-top: 1px solid grey;
   border-bottom: 1px solid grey;
+  padding: 15px 0;
 }
 
 .all-categories::-webkit-scrollbar {
   display: none;
 }
 
+.all-categories button:last-child {
+  margin-right: 10px;
+}
+
 .all-categories button {
   display: inline-block;
+  margin-left: 10px;
 }
 
 svg, svg path {
