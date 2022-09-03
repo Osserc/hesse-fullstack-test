@@ -1,9 +1,7 @@
 import './App.css';
 import useFetch from './logic/useFetch'
-import SubscriptionFilters from './components/SubscriptionsFilter';
 import SubTiersModal from './components/SubTiersModal';
 import ProductCard from './components/ProductCard';
-import { Button } from './components/StyledComponents';
 import { useState, useEffect } from 'react';
 import CategoriesFilters from './components/CategoriesFilter';
 
@@ -55,35 +53,23 @@ function App() {
     })
   }
 
-  function handleClick(event) {
-    if (event.target.dataset.filter === 'Subscriptions') {
-      updateSubButton(+event.target.dataset.id)
-    } else {
-      updateCatButton(+event.target.dataset.id)
-    }
+  function updateSubButtons(buttons) {
+    setSubButtonsStatus(buttons)
   }
 
-  function updateSubButton(id) {
-    setSubButtonsStatus(prevState => {
-      return prevState.map((button) => {
-        return button.id === id ? { ...button, active: !button.active } : { ...button, active: false }
-      })
-    })
-  }
-
-  function updateCatButton(id) {
+  function updateCatButtons(event) {
     setCatButtonsStatus(prevState => {
       return prevState.map((button) => {
-        return button.id === id ? { ...button, active: !button.active } : { ...button, active: false }
+        return button.id === +event.target.dataset.id ? { ...button, active: !button.active } : { ...button, active: false }
       })
     })
   }
 
   function detectSubFilter() {
-    let filter = 'all'
+    let filter = []
     if (subButtonsStatus.some((btn) => btn.active === true)) {
       filter = subButtonsStatus.filter((btn) => btn.active === true)
-      filter = filter[0].tier
+      filter = filter.map((item) => item.tier)
     }
     return filter
   }
@@ -99,8 +85,8 @@ function App() {
 
   function applyFilters(tier, cat) {
     let newState = data
-    if (tier !== 'all') {
-      newState = newState.filter((item) => item.attributes.subscription_type.data.attributes.tier === tier)
+    if (tier.length > 0) {
+      newState = newState.filter((item) => tier.includes(item.attributes.subscription_type.data.attributes.tier))
     }
     if (cat !== 'all') {
       newState = newState.filter((item) => item.attributes.product_types.data.some((single) => single.attributes.name === cat))
@@ -120,7 +106,7 @@ function App() {
       {categories.loaded === false ?
       null
       :
-      <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick}/>
+      <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={updateCatButtons}/>
       }
       {filteredProducts === null ?
       null
@@ -139,7 +125,7 @@ function App() {
       {subscriptions.loaded === false ?
       null
       :
-      <SubTiersModal subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} visible={visible} toggleModal={toggleModal} />
+      <SubTiersModal subscriptions={subscriptions} populate={generateSubStatus} handleClick={updateSubButtons} visible={visible} toggleModal={toggleModal} />
       }
     </div>
   );

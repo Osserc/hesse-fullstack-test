@@ -20,9 +20,9 @@ function CategoriesFilters(props) {
 
     return (
         <div className='all-categories flex gap-15' onWheel={horizontalScroll}>
-            <Button active={detectPresence()} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-id={null}>All</Button>
+            <Button active={detectPresence()} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-filter='Category' data-id={null}>All</Button>
             {props.categories.map((cat) => {
-                return <Button key={cat.id} active={matchButton(cat.id)} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-filter='Categories' data-id={cat.id}>
+                return <Button key={cat.id} active={matchButton(cat.id)} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-filter='Category' data-id={cat.id}>
                     {cat.attributes.name.toUpperCase()}
                 </Button>
             })}
