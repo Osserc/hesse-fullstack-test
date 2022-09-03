@@ -1,13 +1,6 @@
 import { returnSymbol, checkType } from "./SubscriptionSymbols"
 
 function ProductCard(props) {
-    function printCategories(categories) {
-        let list = categories.map((cat) => {
-          return cat.attributes.name
-        })
-        return list.join(', ')
-    }
-
     return (
         <div className='card t-bold'>
             <img src={`http://localhost:1337${props.product.attributes.preview.data.attributes.url}`} alt='Product preview'></img>

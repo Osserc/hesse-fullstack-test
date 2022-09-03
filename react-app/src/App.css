@@ -199,7 +199,6 @@ svg, svg path {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 200px);
-  row-gap: 1px;
 }
 
 .card {
