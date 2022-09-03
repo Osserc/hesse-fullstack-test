@@ -132,7 +132,10 @@ function App() {
       null
       :
       <div>
-        {filteredProducts.map((item) => {
+        {filteredProducts.length === 0 ?
+        <div>Nessun prodotto rispecchia le specifiche.</div>
+        :
+        filteredProducts.map((item) => {
           return <div key={item.id}>{`${item.attributes.brand} ~ ${printCategories(item.attributes.product_types.data)} ~ ${item.attributes.subscription_type.data.attributes.tier}`}</div>
         })}
       </div>

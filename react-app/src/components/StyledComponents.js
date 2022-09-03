@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components'
 function checkType(type) {
     switch (type) {
         case 'Silver':
-            return 'lightgreen'
+            return '#04E995'
         case 'Gold':
-            return 'dodgerblue'
+            return '#337DFF'
         case 'Platinum':
-            return 'darkviolet'
+            return '#A100FF'
         default:
             return 'black'
     }

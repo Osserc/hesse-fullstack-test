@@ -28,6 +28,10 @@
   align-items: center;
 }
 
+.align-start {
+  align-items: flex-start;
+}
+
 .self-start {
   align-self: flex-start;
 }
@@ -108,6 +112,10 @@
   font-weight: bold;
 }
 
+.t-big {
+  font-size: 36px;
+}
+
 /* css proper */
 
 html, body, #root {
@@ -176,7 +184,11 @@ svg, svg path {
   border-radius: 50px 50px 0 0;
   bottom: 0;
   width: 50%;
-  height: 90%;
+  height: 98%;
+}
+
+.tiers-modal div {
+  padding: 5px 25px;
 }
 
 .visible {

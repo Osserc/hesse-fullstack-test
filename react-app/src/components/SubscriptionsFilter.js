@@ -26,7 +26,7 @@ function SubscriptionFilters(props) {
     }
 
     return (
-        <div>
+        <div className='flex self-start gap-15'>
             {props.subscriptions.map((sub) => {
                 return <Button key={sub.id} active={matchButton(sub.id)} type={sub.attributes.tier} onClick={props.handleClick} data-filter='Subscriptions' data-id={sub.id}>
                         {detectType(sub.attributes.tier)} {sub.attributes.subscription_price} €
