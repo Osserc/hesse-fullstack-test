@@ -1,4 +1,4 @@
-import { Button } from "./StyledComponents";
+import { Button } from './StyledComponents';
 
 function CategoriesFilters(props) {
     function matchButton(id) {
@@ -9,12 +9,21 @@ function CategoriesFilters(props) {
         return !props.buttons.some((btn) => btn.active === true)
     }
 
+    function horizontalScroll(event) {
+        if (event.target.nodeName === 'BUTTON') {
+            event.target.parentNode.scrollLeft += event.deltaY
+        } else {
+            event.target.scrollLeft += event.deltaY
+        }
+        console.log(event.target.nodeName)
+    }
+
     return (
-        <div>
-            <Button active={detectPresence()} onClick={props.handleClick} data-id={null}>All</Button>
+        <div className='all-categories flex p-15 gap-15' onWheel={horizontalScroll}>
+            <Button active={detectPresence()} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-id={null}>All</Button>
             {props.categories.map((cat) => {
-                return <Button key={cat.id} active={matchButton(cat.id)} type={cat.attributes.name} onClick={props.handleClick} data-filter='Categories' data-id={cat.id}>
-                    {cat.attributes.name}
+                return <Button key={cat.id} active={matchButton(cat.id)} type='Category' onClick={props.handleClick} onWheel={horizontalScroll} data-filter='Categories' data-id={cat.id}>
+                    {cat.attributes.name.toUpperCase()}
                 </Button>
             })}
         </div>

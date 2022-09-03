@@ -115,30 +115,32 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className={`App ${visible ? 'visible' : ''}`}>
       {subscriptions.loaded === false ?
-      <div>Waiting...</div>
+      null
       :
       <div className='w-100'>
-        <h3 style={{color: 'black'}} onClick={toggleModal}>Filtra</h3>
-        <SubTiersModal subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} visible={visible} toggleModal={toggleModal} />
+        <div className='text-right p-15 t-bold' onClick={toggleModal}>Filtra</div>
       </div>
       }
       {categories.loaded === false ?
-      <div>Waiting...</div>
+      null
       :
-      <div>
-        <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick}/>
-      </div>
+      <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick}/>
       }
       {filteredProducts === null ?
-      <div>Waiting...</div>
+      null
       :
       <div>
         {filteredProducts.map((item) => {
           return <div key={item.id}>{`${item.attributes.brand} ~ ${printCategories(item.attributes.product_types.data)} ~ ${item.attributes.subscription_type.data.attributes.tier}`}</div>
         })}
       </div>
+      }
+      {subscriptions.loaded === false ?
+      null
+      :
+      <SubTiersModal subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} visible={visible} toggleModal={toggleModal} />
       }
     </div>
   );

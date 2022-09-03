@@ -15,7 +15,7 @@ function checkType(type) {
 
 const Button = styled.button`
     background: white;
-    padding: 5px;
+    padding: 5px 10px;
     font-weight: bold;
     border-radius: ${props => props.type === 'Category' ? '25px' : '5px'};
     border: 2px solid ${props => checkType(props.type)};
