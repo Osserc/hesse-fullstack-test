@@ -2,6 +2,7 @@ import './App.css';
 import useFetch from './logic/useFetch'
 import SubscriptionFilters from './components/SubscriptionsFilter';
 import SubTiersModal from './components/SubTiersModal';
+import ProductCard from './components/ProductCard';
 import { Button } from './components/StyledComponents';
 import { useState, useEffect } from 'react';
 import CategoriesFilters from './components/CategoriesFilter';
@@ -26,13 +27,6 @@ function App() {
 
   function toggleModal() {
     setVisible(!visible)
-  }
-
-  function printCategories(categories) {
-    let list = categories.map((cat) => {
-      return cat.attributes.name
-    })
-    return list.join(', ')
   }
 
   if ((!subscriptions.hasOwnProperty('loaded')) && (subButtonsStatus === null)) {
@@ -131,13 +125,15 @@ function App() {
       {filteredProducts === null ?
       null
       :
-      <div>
+      <div className='w-100'>
         {filteredProducts.length === 0 ?
         <div>Nessun prodotto rispecchia le specifiche.</div>
         :
-        filteredProducts.map((item) => {
-          return <div key={item.id}>{`${item.attributes.brand} ~ ${printCategories(item.attributes.product_types.data)} ~ ${item.attributes.subscription_type.data.attributes.tier}`}</div>
-        })}
+        <div className='products-grid w-100 justify-center'>
+          {filteredProducts.map((item) => {
+            return <ProductCard key={item.id} product={item} />
+          })}
+        </div>}
       </div>
       }
       {subscriptions.loaded === false ?

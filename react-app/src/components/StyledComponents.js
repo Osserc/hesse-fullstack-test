@@ -1,17 +1,5 @@
 import styled, { css } from 'styled-components'
-
-function checkType(type) {
-    switch (type) {
-        case 'Silver':
-            return '#04E995'
-        case 'Gold':
-            return '#337DFF'
-        case 'Platinum':
-            return '#A100FF'
-        default:
-            return 'black'
-    }
-}
+import { checkType } from './SubscriptionSymbols'
 
 const Button = styled.button`
     background: white;

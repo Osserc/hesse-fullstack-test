@@ -123,6 +123,7 @@ html, body, #root {
   box-sizing: border-box;
   background-color: black;
   margin: 0;
+  font-family: Arial;
 }
 
 #root {
@@ -193,4 +194,20 @@ svg, svg path {
 
 .visible {
   display: flex;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  row-gap: 1px;
+}
+
+.card {
+  width: 185px;
+  place-self: center;
+}
+
+.greyed-out {
+  color: grey;
+  text-decoration: line-through;
 }
