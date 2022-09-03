@@ -1,21 +1,115 @@
+/* reusable classes */
+
+.flex {
+  display: flex;
+}
+
+.flex-c {
+  flex-direction: column;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.f-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-15 {
+  gap: 15px;
+}
+
+.gap-5 {
+  gap: 5px;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+.p-5 {
+  padding: 5px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.W-50 {
+  width: 50%;
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.t-bold {
+  font-weight: bold;
+}
+
+/* css proper */
+
 html, body, #root {
   width: 100%;
   box-sizing: border-box;
   margin: 0;
 }
 
-.App {
-  text-align: center;
+#root {
+  /* display: flex; */
+  margin: 0 auto;
+  width: 50%;
 }
 
-.App-header {
-  background-color: #282c34;
+.App {
+  text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: flex-start;
+  font-size: 18px;
   color: white;
 }
 
@@ -35,4 +129,15 @@ html, body, #root {
 
 svg, svg path {
   pointer-events: none;
+}
+
+.tiers-modal {
+  display: none;
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+.visible {
+  display: flex;
 }

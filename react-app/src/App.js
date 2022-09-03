@@ -1,8 +1,10 @@
 import './App.css';
 import useFetch from './logic/useFetch'
 import SubscriptionFilters from './components/SubscriptionsFilter';
-import CategoriesFilters from './components/CategoriesFilter';
+import SubTiersModal from './components/SubTiersModal';
+import { Button } from './components/StyledComponents';
 import { useState, useEffect } from 'react';
+import CategoriesFilters from './components/CategoriesFilter';
 
 function App() {
   const data = useFetch('http://localhost:1337/api/products?populate=*')
@@ -11,15 +13,20 @@ function App() {
   const [subButtonsStatus, setSubButtonsStatus] = useState(null)
   const [catButtonsStatus, setCatButtonsStatus] = useState(null)
   const [filteredProducts, setFilteredProducts] = useState(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (subButtonsStatus !== null) {
+    if ((subButtonsStatus !== null) && (catButtonsStatus !== null)) {
       let tier = detectSubFilter()
       let cat = detectCatFilter()
       applyFilters(tier, cat)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subButtonsStatus, catButtonsStatus])
+
+  function toggleModal() {
+    setVisible(!visible)
+  }
 
   function printCategories(categories) {
     let list = categories.map((cat) => {
@@ -108,32 +115,31 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {filteredProducts === null ?
-        <div>Waiting...</div>
-        :
-        <div>
-          {filteredProducts.map((item) => {
-            return <div key={item.id}>{`${item.attributes.brand} ~ ${printCategories(item.attributes.product_types.data)} ~ ${item.attributes.subscription_type.data.attributes.tier}`}</div>
-          })}
-        </div>
-        }
-        {categories.loaded === false ?
-        <div>Waiting...</div>
-        :
-        <div>
-          <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick} />
-        </div>
-        }
-        {subscriptions.loaded === false ?
-        <div>Waiting...</div>
-        :
-        <div>
-          <SubscriptionFilters subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} />
-        </div>
-        }
-      </header>
+    <div className='App'>
+      {subscriptions.loaded === false ?
+      <div>Waiting...</div>
+      :
+      <div className='w-100'>
+        <h3 style={{color: 'black'}} onClick={toggleModal}>Filtra</h3>
+        <SubTiersModal subscriptions={subscriptions} buttons={subButtonsStatus} handleClick={handleClick} visible={visible} toggleModal={toggleModal} />
+      </div>
+      }
+      {categories.loaded === false ?
+      <div>Waiting...</div>
+      :
+      <div>
+        <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={handleClick}/>
+      </div>
+      }
+      {filteredProducts === null ?
+      <div>Waiting...</div>
+      :
+      <div>
+        {filteredProducts.map((item) => {
+          return <div key={item.id}>{`${item.attributes.brand} ~ ${printCategories(item.attributes.product_types.data)} ~ ${item.attributes.subscription_type.data.attributes.tier}`}</div>
+        })}
+      </div>
+      }
     </div>
   );
 }
