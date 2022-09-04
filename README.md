@@ -1,19 +1,19 @@
 # Hesse Fullstack test
 
-[English version] (#english-version) | [Versione italiana] (#versione-italiana)
+[English version](#english-version) | [Versione italiana](#versione-italiana)
 
 # English version
 
 ## Installation
 
-1. git clone https://github.com/Osserc/hesse-fullstack-test.git
-2. cd hesse-fullstack-test
-3. npm i
-4. npm run develop
+1. ```git clone https://github.com/Osserc/hesse-fullstack-test.git```
+2. ```cd hesse-fullstack-test```
+3. ```npm i```
+4. ```npm run develop```
 5. Open a new terminal in the same directory
-6. cd react-app
-7. npm i
-8. npm start
+6. ```cd react-app```
+7. ```npm i```
+8. ```npm start```
 
 Note: the .env file and the database are included; they contain no sensitive information no matter what GitHub may complain about.  
 I am aware that including .env files is not ideal, but in this case I wanted to spare you the hassle of creating it manually by copying and pasting.  
@@ -74,14 +74,14 @@ All in all, I had a great time working on this assignment, and I can't wait to h
 
 ## Installazione
 
-1. git clone https://github.com/Osserc/hesse-fullstack-test.git
-2. cd hesse-fullstack-test
-3. npm i
-4. npm run develop
+1. ```git clone https://github.com/Osserc/hesse-fullstack-test.git```
+2. ```cd hesse-fullstack-test```
+3. ```npm i```
+4. ```npm run develop```
 5. Aprire un nuovo terminale nella stessa directory
-6. cd react-app
-7. npm i
-8. npm start
+6. ```cd react-app```
+7. ```npm i```
+8. ```npm start```
 
 ## Dettagli di implementazione
 
