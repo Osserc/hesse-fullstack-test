@@ -39,7 +39,7 @@ function SubTiersModal(props) {
             <div className='bold'>Abbonamento</div>
             <SubscriptionFilters subscriptions={props.subscriptions} buttons={buttons} handleClick={activateButton} />
             <div className='grow-container end'>
-                <div className='end'><Button active={true} type='Subscription' onClick={sendUpdate}>Conferma</Button></div>
+                <div className='end'><Button active={true} type='Generic' onClick={sendUpdate}>Conferma</Button></div>
             </div>
         </TiersModal>
     )
