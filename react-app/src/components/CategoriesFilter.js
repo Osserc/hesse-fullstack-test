@@ -26,7 +26,7 @@ function CategoriesFilters(props) {
     function activateButton(event) {
         setButtons(prevState => {
             return prevState.map((button) => {
-                return button.id === +event.target.dataset.id ? { ...button, active: !button.active } : { ...button, active: false }
+                return button.id === +event.target.dataset.id ? { ...button, active: true } : { ...button, active: false }
             })
         })
     }
