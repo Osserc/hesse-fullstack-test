@@ -88,7 +88,7 @@ Vi assicuro che non lo esenterei da .gitignore in un'app da mandare in produzion
 
 ## Dettagli di implementazione
 
-Iniziamo con il design del database. Ho seguito attentamente le vostre indicazione, con l'aggiunto di aver aggiunto dei media a ogni singolo prodotto.  
+Iniziamo con il design del database. Ho seguito attentamente le vostre indicazione, con l'aggiunta di aver assegnato dei media a ogni singolo prodotto.  
 Le relazioni tra i database sono quelle specificate nelle istruzioni. L'unica differenza è che i tier degli abbonamenti non hanno un'immagine associata.  
 Quello che hanno è un campo che è usato per identificare quale simbolo vi corrisponde.
 
@@ -98,7 +98,7 @@ Ho pertanto scelto di salvare gli assets localmente e chiamarli a seconda degli 
 
 Il prossimo problema è stato risolvere il fetching dei dati dall'API, per il quale ho usato un custom React Hook.  
 L'effetto collaterale è stato dover introdurre degli workaround per impedire al codice di fallire mentre React stava ottenendo i dati.  
-Non sono del tutto soddisfatti di come l'ho gestito (non sono stato in grado di consolidare i 3 check, purtroppo) ma ha fatto il suo dovere: ora controlla solamente lo status di null dei tre tipi di dati richiesti.
+Non sono del tutto soddisfatto di come l'ho gestito (non sono stato in grado di consolidare i 3 check, purtroppo) ma ha fatto il suo dovere: ora controlla solamente lo status di null dei tre tipi di dati richiesti.
 
 La natura asincrona dell'operazione ha reso lavorare con l'elenco prodotti un po' più difficile: la mia soluzione consiste nel manipolare l'oggetto stesso, ma questo significa che una volta filtrati gli oggetti, li perda completamente.  
 Ho pertanto scelto di copiare i valori in un secondo stato e manipolare quello. E siccome ho ancora accesso agli originali, posso refreshare quando rimuovo o cambio i filtri.  
@@ -109,16 +109,16 @@ Non vedo l'ora di vedere come avete affrontato la situazione nella vostra app.
 Un altro problema è stato implementare una soluzione universale alla questione bottoni tramite styled-components.  
 Attraverso un attento uso di props e condizioni, ho costruito un component bottone in grado di prendere diversi ruoli senza dividerlo in diversi componenti, riducendo le dimensioni del codice. Il modo in cui l'ho implementato permette altre espanzioni senza troppi grattacapi.  
 
-Poi c'è stato da aggiugnere la logica dei bottoni stessi. Nel primo modo in cui l'ho scritto, tutta la logica era contenuta in App.js, che tracciava lo stato dei bottoni, essis tessi generati sulla base dei dati su abbonamenti e tipi di prodotti ottenuti dall'API.  
+Poi c'è stato da aggiugnere la logica dei bottoni stessi. Nel primo modo in cui l'ho scritto, tutta la logica era contenuta in App.js, che tracciava lo stato dei bottoni, essi stessi generati sulla base dei dati su abbonamenti e tipi di prodotti ottenuti dall'API.  
 Avrei potuto evitarmi il disturbo hardcode-ando i valori, ma ho voluto "future-proof-arlo" andando a guardare i dati del server Strapi.
 
 Le due serie di bottoni operavano con la stessa logica: quando uno è attivato, gli altri vengono spenti, immediatamente.  
 Questo ha creato il problema di non permettere più di una selezione e di rendere il bottone di conferma per gli abbonamenti irrilevante.  
-Ciò è sato ovviato replicando la logica all'interno del component dei filtri di categoria, con un piccoloa ggiustamento per permettere selezioni multiple. Sebbene sia stato efficace, non mi è piaciuto.
+Ciò è sato ovviato replicando la logica all'interno del component dei filtri di categoria, con un piccolo aggiustamento per permettere selezioni multiple. Sebbene sia stato efficace, non mi è piaciuto.
 
 Ho pertanto deciso di fare refactoring, conservare solamente il "prodotto finale" dei filtri, e confinare la logica vera e propria dei bottoni nei rispettivi componenti.  
 Questo ha avuto il vantaggio di ottenere una maggiore separation of concerns, e di dare piena funzionalità al bottone conferma del modale.  
-Tra l'altro, ho dato un'occhiata a come avete implementato la funzionalità del filtro deglia bbonammenti e ho visto che si può selezionare alcuni filtri, non applicarli, chiudere il modale, riaprirlo e la app si ricorda quali filtri erano stati spuntati. Sono un po' ogoglioso di aver replicato "per sbaglio" la stessa funzionalità.  
+Tra l'altro, ho dato un'occhiata a come avete implementato la funzionalità del filtro degli abbonammenti e ho visto che si possono selezionare alcuni filtri, non applicarli, chiudere il modale, riaprirlo e la app si ricorda quali filtri erano stati spuntati. Sono un po' orgoglioso di aver replicato "senza fare apposta" la stessa funzionalità.  
 ~~L'unica differenza con la vostra applicazione, tuttavia, è che cliccando un filtro di categoria attivato lo disattiva invece di fare nulla.~~ L'ho aggiustato, ora si comporta esattamente come fa la vostra app.
 
 Mentre siamo nell'argomento bottoni, sono irrazionalmente orgoglioso della mia implementazione del bottone "all". Il modo in cui i filtri funzionano è attraverso la generazione di bottoni mappando le categorie sul server, ma ciò lasciava fuori la categoria "tutti"; ciò che ho finito per fare è stato hardcode-are un bottone di fronte al render della collezione e "attivarlo" quando tutti gli altri bottoni erano spenti. L'alternativa era aggiugnere una categoria "all" a tutti i prodotti, ma l'ho ritenuta assurda e poco elegante.  
