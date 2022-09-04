@@ -4,7 +4,7 @@ import CloseButton from '../assets/CloseButton.png'
 import { useState } from 'react'
 
 function SubTiersModal(props) {
-    const [buttons, setButtons] = useState(props.populate(props.subscriptions))
+    const [buttons, setButtons] = useState(generateSubStatus())
 
     function activateButton(event) {
         setButtons(prevState => {
@@ -14,9 +14,20 @@ function SubTiersModal(props) {
         })
     }
 
+    function generateSubStatus() {
+        return props.subscriptions.map((sub) => {
+          return { id: sub.id, tier: sub.attributes.tier, active: false }
+        })
+    }
+
     function sendUpdate() {
         props.toggleModal()
-        props.handleClick(buttons)
+        props.update(gatherFilters())
+    }
+
+    function gatherFilters() {
+        let activeButtons = buttons.filter((btn) => btn.active === true)
+        return activeButtons.map((btn) => btn.tier)
     }
 
     return (

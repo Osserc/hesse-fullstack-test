@@ -10,87 +10,41 @@ function App() {
   const data = useFetch('http://localhost:1337/api/products?populate=*')
   const categories = useFetch('http://localhost:1337/api/product-types?populate=*')
   const subscriptions = useFetch('http://localhost:1337/api/subscription-types?populate=*')
-  const [subButtonsStatus, setSubButtonsStatus] = useState(null)
-  const [catButtonsStatus, setCatButtonsStatus] = useState(null)
+  const [subFilters, setSubFilters] = useState([])
+  const [catFilter, setCatFilter] = useState('all')
   const [filteredProducts, setFilteredProducts] = useState(null)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if ((subButtonsStatus !== null) && (catButtonsStatus !== null)) {
-      let tier = detectSubFilter()
-      let cat = detectCatFilter()
-      applyFilters(tier, cat)
+    if (filteredProducts !== null) {
+      applyFilters()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subButtonsStatus, catButtonsStatus])
+  }, [subFilters, catFilter])
 
   function toggleModal() {
     setVisible(!visible)
-  }
-
-  if ((!subscriptions.hasOwnProperty('loaded')) && (subButtonsStatus === null)) {
-    let newState = generateSubStatus()
-    setSubButtonsStatus(newState)
-  }
-
-  if ((!categories.hasOwnProperty('loaded')) && (catButtonsStatus === null)) {
-    let newState = generateCatStatus()
-    setCatButtonsStatus(newState)
   }
 
   if ((!data.hasOwnProperty('loaded')) && (filteredProducts === null)) {
     setFilteredProducts(data)
   }
 
-  function generateSubStatus() {
-    return subscriptions.map((sub) => {
-      return { id: sub.id, tier: sub.attributes.tier, active: false }
-    })
+  function updateSubButtons(filter) {
+    setSubFilters(filter)
   }
 
-  function generateCatStatus() {
-    return categories.map((cat) => {
-      return { id: cat.id, type: cat.attributes.name, active: false }
-    })
+  function updateCatButtons(filter) {
+    setCatFilter(filter)
   }
 
-  function updateSubButtons(buttons) {
-    setSubButtonsStatus(buttons)
-  }
-
-  function updateCatButtons(event) {
-    setCatButtonsStatus(prevState => {
-      return prevState.map((button) => {
-        return button.id === +event.target.dataset.id ? { ...button, active: !button.active } : { ...button, active: false }
-      })
-    })
-  }
-
-  function detectSubFilter() {
-    let filter = []
-    if (subButtonsStatus.some((btn) => btn.active === true)) {
-      filter = subButtonsStatus.filter((btn) => btn.active === true)
-      filter = filter.map((item) => item.tier)
-    }
-    return filter
-  }
-
-  function detectCatFilter() {
-    let filter = 'all'
-    if (catButtonsStatus.some((btn) => btn.active === true)) {
-      filter = catButtonsStatus.filter((btn) => btn.active === true)
-      filter = filter[0].type
-    }
-    return filter
-  }
-
-  function applyFilters(tier, cat) {
+  function applyFilters() {
     let newState = data
-    if (tier.length > 0) {
-      newState = newState.filter((item) => tier.includes(item.attributes.subscription_type.data.attributes.tier))
+    if (subFilters.length > 0) {
+      newState = newState.filter((item) => subFilters.includes(item.attributes.subscription_type.data.attributes.tier))
     }
-    if (cat !== 'all') {
-      newState = newState.filter((item) => item.attributes.product_types.data.some((single) => single.attributes.name === cat))
+    if (catFilter !== 'all') {
+      newState = newState.filter((item) => item.attributes.product_types.data.some((single) => single.attributes.name === catFilter))
     }
     setFilteredProducts(newState)
   }
@@ -107,7 +61,7 @@ function App() {
       {categories.loaded === false ?
       null
       :
-      <CategoriesFilters categories={categories} buttons={catButtonsStatus} handleClick={updateCatButtons}/>
+      <CategoriesFilters categories={categories} update={updateCatButtons}/>
       }
       {filteredProducts === null ?
       null
@@ -127,7 +81,7 @@ function App() {
       {subscriptions.loaded === false ?
       null
       :
-      <SubTiersModal subscriptions={subscriptions} populate={generateSubStatus} handleClick={updateSubButtons} visible={visible} toggleModal={toggleModal} />
+      <SubTiersModal subscriptions={subscriptions} update={updateSubButtons} visible={visible} toggleModal={toggleModal} />
       }
     </div>
   );
