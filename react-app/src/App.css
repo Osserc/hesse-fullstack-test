@@ -137,7 +137,7 @@ html, body, #root {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  font-size: 18px;
+  font-size: 16px;
   color: black;
   box-sizing: border-box;
 }
@@ -174,20 +174,6 @@ svg, svg path {
   pointer-events: none;
 }
 
-.tiers-modal {
-  display: none;
-  position: absolute;
-  background-color: white;
-  border-radius: 50px 50px 0 0;
-  bottom: 0;
-  width: 50%;
-  height: 98%;
-}
-
-.tiers-modal div {
-  padding: 5px 25px;
-}
-
 .visible {
   display: flex;
 }
@@ -197,7 +183,18 @@ svg, svg path {
   place-self: center;
 }
 
+.pad {
+  padding: 5px 10px;
+}
+
 .greyed-out {
   color: grey;
   text-decoration: line-through;
+}
+
+@media (max-width: 800px) {
+  #root {
+    width: 100%;
+    max-width: 100%;
+  }
 }

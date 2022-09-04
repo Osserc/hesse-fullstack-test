@@ -58,6 +58,10 @@ const TiersModal = styled.div`
     div {
         padding: 5px 25px
     }
+
+    @media (max-width: 800px) {
+        width: 100%;
+    }
 `
 
 export { Button, ProductsGrid, TiersModal }
