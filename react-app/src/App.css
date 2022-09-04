@@ -40,10 +40,6 @@
   align-self: flex-end;
 }
 
-.f-wrap {
-  flex-wrap: wrap;
-}
-
 .f-grow {
   flex-grow: 1;
 }
@@ -194,11 +190,6 @@ svg, svg path {
 
 .visible {
   display: flex;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
 }
 
 .card {

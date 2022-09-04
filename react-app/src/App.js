@@ -2,6 +2,7 @@ import './App.css';
 import useFetch from './logic/useFetch'
 import SubTiersModal from './components/SubTiersModal';
 import ProductCard from './components/ProductCard';
+import { ProductsGrid } from './components/StyledComponents';
 import { useState, useEffect } from 'react';
 import CategoriesFilters from './components/CategoriesFilter';
 
@@ -115,11 +116,12 @@ function App() {
         {filteredProducts.length === 0 ?
         <div>Nessun prodotto rispecchia le specifiche.</div>
         :
-        <div className='products-grid w-100 justify-center'>
+        <ProductsGrid>
           {filteredProducts.map((item) => {
             return <ProductCard key={item.id} product={item} />
           })}
-        </div>}
+        </ProductsGrid>
+        }
       </div>
       }
       {subscriptions.loaded === false ?
