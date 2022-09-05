@@ -14,7 +14,6 @@ function ProductCard(props) {
                     <div className='greyed-out'>{props.product.attributes.subscription_type.data.attributes.retail_price}€</div>
                 </div>
             </div>
-            <div></div>
         </div>
     )
 }
