@@ -57,9 +57,10 @@ As an aside, I looked up how you guys implemented the subscription filter functi
 While we are on the buttons topic, I am irrationally proud of my "all" button implementation. The way the filter works is by generating buttons by mapping the categories on the server, but this left out the "all" category; what I ended up doing was hard-coding a button in front of the collection render and "activating" it when all the other buttons were off. The alternative was adding an "all" category to all products, but I judged it absurd and inelegant.  
 Activating the "all" button itself takes advantage of the looping function I wrote: since no button has an id of 0, they will all be turned off, turning then on the "all" button. Silly, I know, but I wanted to include it.
 
-Speaking of the modal, you will notice that it is made as a styled-component; this was't always so.  
+Speaking of the modal (and the products grid), you will notice that it is made as a styled-component; this was't always so.  
 Previously it was crafted with pure CSS, but I wanted to play around with some more specific conditions inside styled components.  
-It wasn't really worth it, but I appreciated the opportunity to play around with it a bit and familiarize myself with it better.
+It wasn't really worth it, but I appreciated the opportunity to play around with it a bit and familiarize myself with it better.  
+UPDATE: I ended up reverting this change. It was a really silly decision, it was little more than showing off and was completely out of place. Still, I kept the code I used in case you guys were curious about how I implemented them.
 
 As for the layout itself, I replicated it almost completely. You will have noticed that the screen is half of the available screen size;  
 this is to showcase the scrolling on the categories, and to avoid having a comically large view. I also added a media query to avoid compressing it when going under 800px.
@@ -124,9 +125,10 @@ Tra l'altro, ho dato un'occhiata a come avete implementato la funzionalità del 
 Mentre siamo nell'argomento bottoni, sono irrazionalmente orgoglioso della mia implementazione del bottone "all". Il modo in cui i filtri funzionano è attraverso la generazione di bottoni mappando le categorie sul server, ma ciò lasciava fuori la categoria "tutti"; ciò che ho finito per fare è stato hardcode-are un bottone di fronte al render della collezione e "attivarlo" quando tutti gli altri bottoni erano spenti. L'alternativa era aggiugnere una categoria "all" a tutti i prodotti, ma l'ho ritenuta assurda e poco elegante.  
 Attivare il bottone "all" stesso sfrutta il looping della funzione che ho scritto: dato che nessun bottone ha un id di 0, verranno tutti spenti, accendendo dunque il bottone "all". Sciocco, lo so, ma ho voluto includerlo.
 
-Parlando del modale, noterete che è stato fatto con uno styled-component; non era così prima.
+Parlando del modale (e della griglia prodotti), noterete che è stato fatto con uno styled-component; non era così prima.
 Precedentemente era realizzato con puro CSS, ma volevo sperimentare un po' con alcune condizioni specifiche all'interno di styled-components.
-Non ne è valsa veramente la pena, ma ho apprezzato l'opportunità di giocarci un po' e familiarizzarmi meglio con esso.
+Non ne è valsa veramente la pena, ma ho apprezzato l'opportunità di giocarci un po' e familiarizzarmi meglio con esso.  
+AGGIORNAMENTO: ho deciso di annullare questo cambiamento. Era una decisione molto sciocca, poco più che vanteria e completaemnte fuori luogo. Ciononostante, ho tenuto il codice in caso siate curiosi di come li avessi implementati.
 
 In quanto al layout in sè, l'ho replicato quasi completamente. Avrete notato che la schermata è solamente metà dello schermo disponibile;  
 questo è per mostrare lo scrolling nelle categorie, ed evitare di avere una view comicamente larga. Ho anche aggiunto una media query per evitare di comprimerla quando si va sotto gli 800px.

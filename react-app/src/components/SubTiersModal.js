@@ -1,5 +1,5 @@
 import SubscriptionFilters from "./SubscriptionsFilter"
-import { Button, TiersModal } from "./StyledComponents"
+import { Button } from "./StyledComponents"
 import CloseButton from '../assets/CloseButton.png'
 import { useState } from 'react'
 
@@ -31,17 +31,28 @@ function SubTiersModal(props) {
     }
 
     return (
-        <TiersModal visible={props.visible}>
-            <div className='end mt'>
+        <div className={`tiers-modal flex flex-c align-start w-100 gap-15 ${props.visible ? `visible` : ''}`}>
+            <div className='self-end mt-25'>
                 <img src={CloseButton} onClick={props.toggleModal} alt='Close modal button'></img>
             </div>
-            <div className='title bold'>Filtra la ricerca</div>
-            <div className='bold'>Abbonamento</div>
+            <div className='t-big t-bold'>Filtra la ricerca</div>
+            <div className='t-bold'>Abbonamento</div>
             <SubscriptionFilters subscriptions={props.subscriptions} buttons={buttons} handleClick={activateButton} />
-            <div className='grow-container end'>
-                <div className='end'><Button active={true} type='Generic' onClick={sendUpdate}>Conferma</Button></div>
+            <div className='flex f-grow self-end'>
+                <div className='self-end'><Button active={true} type='Subscription' onClick={sendUpdate}>Conferma</Button></div>
             </div>
-        </TiersModal>
+        </div>
+        // <TiersModal visible={props.visible}>
+        //     <div className='end mt'>
+        //         <img src={CloseButton} onClick={props.toggleModal} alt='Close modal button'></img>
+        //     </div>
+        //     <div className='title bold'>Filtra la ricerca</div>
+        //     <div className='bold'>Abbonamento</div>
+        //     <SubscriptionFilters subscriptions={props.subscriptions} buttons={buttons} handleClick={activateButton} />
+        //     <div className='grow-container end'>
+        //         <div className='end'><Button active={true} type='Generic' onClick={sendUpdate}>Conferma</Button></div>
+        //     </div>
+        // </TiersModal>
     )
 }
 

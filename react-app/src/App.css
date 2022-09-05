@@ -174,6 +174,25 @@ svg, svg path {
   pointer-events: none;
 }
 
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  justify-content: center;
+  width: 100%;
+}
+
+.tiers-modal {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-radius: 50px 50px 0 0;
+  bottom: 0;
+  width: 50%;
+  height: 98%;
+  padding: 15px 25px;
+  box-sizing: border-box;
+}
+
 .visible {
   display: flex;
 }
@@ -196,5 +215,9 @@ svg, svg path {
   #root {
     width: 100%;
     max-width: 100%;
+  }
+
+  .tiers-modal {
+    width: 100%;
   }
 }
